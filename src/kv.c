@@ -60,7 +60,7 @@ int kv_put(kv_t *db, char *key, char *value) {
             }
 
             entry->value = new_value;
-            return real_idx;
+            return 0;
         }
 
         // landing in an empty slot, whether NULL or tombstone
@@ -88,7 +88,7 @@ int kv_put(kv_t *db, char *key, char *value) {
             entry->value = new_value;
             db->count++;
 
-            return real_idx;
+            return 0;
         }
     }
 
@@ -105,7 +105,7 @@ int kv_put(kv_t *db, char *key, char *value) {
         db->entries[first_tomb].value = new_value;
         db->count++;
 
-        return first_tomb;
+        return 0;
     }
 
     // db is occupied
