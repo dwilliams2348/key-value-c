@@ -175,6 +175,11 @@ int kv_delete(kv_t *db, char *key) {
 }
 
 void kv_free(kv_t *db) {
+    // if database is already NULL no need to free.
+    if (!db) {
+        return;
+    }
+
     // need to loop through all elements of array to delete the keys and values
     // then the entry itself
     for (int i = 0; i < db->capacity; i++) {
