@@ -42,4 +42,13 @@ int kv_put(kv_t *db, char *key, char *value);
 /// @return Returns the associated value if found otherwise NULL is returned.
 char *kv_get(kv_t *db, char *key);
 
+/// @brief Searches for the provided key and deletes it and the value if found.
+/// @details Searches database for provided key, skipping over tombstones or
+/// returning if an empty entry is found.
+/// @param[in] db A pointer to the database to remove key from.
+/// @param[in] key A pointer to the key to serach for and remove from database.
+/// @return Returns 0 if key is found and deleted, returns -1 if either provided
+/// param is NULL or if an entry for the provided key is not found.
+int kv_delete(kv_t *db, char *key);
+
 #endif

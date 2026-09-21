@@ -20,6 +20,19 @@ int main() {
 
     char *value = kv_get(db, "hehe");
     if (value) {
-        printf("found value: %s, at key: %s", value, "hehe");
+        printf("found value: %s, at key: %s\n", value, "hehe");
+    }
+
+    printf("Count in database is %ld.\n", db->count);
+
+    if (kv_delete(db, "foo") == -1) {
+        printf("Could not find key 'foo' in database.\n");
+    }
+
+    if (kv_delete(db, "hehe") == 0) {
+        printf("Successfully deleted key 'hehe' from db.\n");
+        printf("Database count after deletion: %ld\n", db->count);
+    } else {
+        printf("Could not delete 'hehe' from db.\n");
     }
 }
