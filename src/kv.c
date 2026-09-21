@@ -173,3 +173,23 @@ int kv_delete(kv_t *db, char *key) {
 
     return -1;
 }
+
+void kv_free(kv_t *db) {
+    // need to loop through all elements of array to delete the keys and values
+    // then the entry itself
+    for (int i = 0; i < db->capacity; i++) {
+        if (db->entries[i].key == TOMBSTONE) {
+            // do not delete, just skip.
+            continue;
+        }
+
+        // first free the key and value.
+        free(db->entries[i].key);
+        free(db->entries[i].value);
+    }
+
+    // once all elements are freed first free the array of entries then the
+    // database pointer.
+    free(db->entries);
+    free(db);
+}

@@ -51,4 +51,9 @@ char *kv_get(kv_t *db, char *key);
 /// param is NULL or if an entry for the provided key is not found.
 int kv_delete(kv_t *db, char *key);
 
+/// @brief Takes the given database and frees all associated memory.
+/// @param[in] db A pointer to the database that should be freed from memory.
+/// @returns void
+void kv_free(kv_t *db);
+
 #endif

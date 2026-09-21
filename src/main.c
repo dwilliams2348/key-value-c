@@ -35,4 +35,6 @@ int main() {
     } else {
         printf("Could not delete 'hehe' from db.\n");
     }
+
+    kv_free(db);
 }
