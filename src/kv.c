@@ -111,3 +111,34 @@ int kv_put(kv_t *db, char *key, char *value) {
     // db is occupied
     return -2;
 }
+
+char *kv_get(kv_t *db, char *key) {
+    if (!db || !key) {
+        // either value is NULL thus cannot properly search
+        return NULL;
+    }
+
+    size_t start = hash(key, db->capacity);
+    for (int i = 0; i < db->capacity - 1; i++) {
+        size_t real_idx = (start + i) % db->capacity;
+        kv_entry_t *entry = &db->entries[real_idx];
+
+        // if key is NULL return NULL since we wont find the value;
+        if (!entry->key) {
+            return NULL;
+        }
+
+        // if the key is TOMBSTONE the value can still be found in db, or if the
+        // key is not the same.
+        if (entry->key == TOMBSTONE || strcmp(key, entry->key) != 0) {
+            continue;
+        }
+
+        if (strcmp(key, entry->key) == 0) {
+            return entry->value;
+        }
+    }
+
+    // should never hit this line
+    return NULL;
+}

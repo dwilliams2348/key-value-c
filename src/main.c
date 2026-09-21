@@ -9,11 +9,17 @@ int main() {
     printf("Database capacity: %ld\n", db->capacity);
     printf("Database count : %ld\n", db->count);
 
-    int idx = kv_put(db, "hehe", "haha");
+    kv_put(db, "hehe", "haha");
 
-    if (idx >= 0) {
-        printf("Put key 'hehe' and value 'haha' at idx: %d", idx);
-    } else {
-        printf("kv_put returned: %d", idx);
+    for (int i = 0; i < db->capacity; i++) {
+        if (db->entries[i].key) {
+            printf("[%d] key: %s, value: %s\n", i, db->entries[i].key,
+                   db->entries[i].value);
+        }
+    }
+
+    char *value = kv_get(db, "hehe");
+    if (value) {
+        printf("found value: %s, at key: %s", value, "hehe");
     }
 }

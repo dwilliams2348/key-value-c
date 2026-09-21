@@ -33,4 +33,13 @@ kv_t *kv_init(size_t capacity);
 /// returned.
 int kv_put(kv_t *db, char *key, char *value);
 
+/// @brief Searches for the provided key in the database and returns the
+/// associated value.
+/// @details Will search for the provided key, skipping over tombstones but
+/// returning NULL for the first NULL value found or if the key is not found.
+/// @param[in] db A pointer to the database to search.
+/// @param[in] key The key to search for in the database.
+/// @return Returns the associated value if found otherwise NULL is returned.
+char *kv_get(kv_t *db, char *key);
+
 #endif
